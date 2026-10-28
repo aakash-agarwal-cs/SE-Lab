@@ -10,19 +10,24 @@ routes = {"R1": {"name": "Main Gate - Library", "trips": []},
 MIN_CAPACITY = 10
 DRIVERS = ["Prakash", "Leela", "Imran", "Tom"]
 
+
 def add_trip_log(route_id, passenger_count, logs=None):
     """Record a trip's passenger count and return the log list."""
     if not isinstance(passenger_count, int) or passenger_count < 0:
-        raise ValueError(f"passenger_count must be a non-negative integer, got {passenger_count!r}")
+        raise ValueError(
+            "passenger_count must be a non-negative integer, "
+            f"got {passenger_count!r}")
     if logs is None:
         logs = []
     routes[route_id]["trips"].append(passenger_count)
     logs.append(f"{datetime.now()}: {route_id} carried {passenger_count}")
     return logs
 
+
 def remove_route(route_id):
     """Delete a route from the fleet."""
     del routes[route_id]
+
 
 def average_load(route_id):
     """Return the average passengers per trip (0.0 if no trips yet)."""
@@ -31,15 +36,18 @@ def average_load(route_id):
         return 0.0
     return sum(trips) / len(trips)
 
+
 def underused_routes():
     """Return the ids of routes whose average load is below MIN_CAPACITY."""
     return [r for r in routes if average_load(r) < MIN_CAPACITY]
+
 
 def assign_driver(route_id):
     """Pick a driver for an existing route."""
     if route_id not in routes:
         raise KeyError(route_id)
     return secrets.choice(DRIVERS)
+
 
 def sync_fleet_data(file="fleet.json"):
     """Save routes to a JSON file, then reload them from it."""
@@ -49,6 +57,7 @@ def sync_fleet_data(file="fleet.json"):
         loaded = json.load(handle)
     routes.clear()
     routes.update(loaded)
+
 
 def main():
     """Run the demo scenario."""
@@ -74,6 +83,7 @@ def main():
         print("R3 average:", average_load("R3"))
     else:
         print("R3 has been removed")
+
 
 if __name__ == "__main__":
     main()
