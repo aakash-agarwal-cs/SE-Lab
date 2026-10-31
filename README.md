@@ -12,3 +12,4 @@ Software Engineering lab submissions.
 - [Lab-3: Architectural Pattern Justification](./Lab-3)
 - [Lab-4: VibeCoding](./Lab-4)
 - [Lab-5: Static Code Analysis](./Lab-5)
+- [Lab-6: Code and Branch Coverage Analysis](./Lab-6)
